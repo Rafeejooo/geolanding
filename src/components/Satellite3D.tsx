@@ -40,8 +40,8 @@ export default function Satellite3D() {
         <meshStandardMaterial color="#0c4a6e" metalness={0.8} roughness={0.2} />
       </mesh>
       {/* Left Connector */}
-      <mesh position={[-0.35, 0, 0]}>
-        <cylinderGeometry args={[0.02, 0.02, 0.2]} rotation={[0, 0, Math.PI/2]} />
+      <mesh position={[-0.35, 0, 0]} rotation={[0, 0, Math.PI/2]}>
+        <cylinderGeometry args={[0.02, 0.02, 0.2]} />
         <meshStandardMaterial color="#cbd5e1" />
       </mesh>
 
@@ -56,8 +56,8 @@ export default function Satellite3D() {
         <meshStandardMaterial color="#0c4a6e" metalness={0.8} roughness={0.2} />
       </mesh>
       {/* Right Connector */}
-      <mesh position={[0.35, 0, 0]}>
-        <cylinderGeometry args={[0.02, 0.02, 0.2]} rotation={[0, 0, Math.PI/2]} />
+      <mesh position={[0.35, 0, 0]} rotation={[0, 0, Math.PI/2]}>
+        <cylinderGeometry args={[0.02, 0.02, 0.2]} />
         <meshStandardMaterial color="#cbd5e1" />
       </mesh>
 
