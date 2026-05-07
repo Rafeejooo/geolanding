@@ -6,7 +6,7 @@ import dynamic from 'next/dynamic';
 const GlobeT = dynamic(() => import('react-globe.gl'), { ssr: false });
 
 export default function Globe() {
-  const globeRef = useRef<any>();
+  const globeRef = useRef<any>(null);
   const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
 
   useEffect(() => {
