@@ -149,10 +149,9 @@ export default function Footer() {
       {/* Content */}
       <div className="relative z-20 container mx-auto px-6 pt-16 pb-8 max-w-7xl">
 
-        {/* Top row: logo + CTA */}
+        {/* Top row: logo + CTA — commented out
         <div className="flex flex-col md:flex-row justify-between items-start gap-10 mb-16">
 
-          {/* Logo + tagline */}
           <div className="max-w-sm">
             <Link href="/" className="flex items-center gap-3 group mb-5">
               <div className="p-2 bg-cyan-500 rounded-xl shadow-[0_0_15px_rgba(6,182,212,0.8)] group-hover:bg-cyan-400 transition-colors">
@@ -174,7 +173,6 @@ export default function Footer() {
             </a>
           </div>
 
-          {/* GET IN TOUCH button */}
           <div className="shrink-0">
             <button className="px-8 py-3.5 bg-transparent border border-white/20 text-white font-bold flex items-center gap-2 hover:border-white/50 transition-all rounded-full backdrop-blur-sm uppercase tracking-widest text-sm group">
               Get In Touch
@@ -182,6 +180,7 @@ export default function Footer() {
             </button>
           </div>
         </div>
+        */}
 
         {/* Links grid */}
         <div className="grid grid-cols-2 md:grid-cols-3 gap-8 mb-16">

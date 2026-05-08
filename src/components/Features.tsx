@@ -18,6 +18,7 @@ const features = [
     bulletColor: 'text-blue-400',
     bullets: ['Order satellite imagery', 'AOI management', 'Data catalog & archive', 'API access'],
     buttonText: 'Explore Data Hub',
+    image: '/datahub.png',
   },
   {
     title: 'Analytics',
@@ -33,6 +34,7 @@ const features = [
     bulletColor: 'text-purple-400',
     bullets: ['Land cover classification', 'Change detection', 'Time series analysis', 'AI & machine learning'],
     buttonText: 'Explore Analytics',
+    image: '/analytics.png',
   },
   {
     title: 'Monitoring',
@@ -48,6 +50,7 @@ const features = [
     bulletColor: 'text-emerald-400',
     bullets: ['Crop monitoring', 'Deforestation tracking', 'Mining activity detection', 'Alert & notification'],
     buttonText: 'Open Dashboard',
+    image: '/monitoring.png',
   },
 ];
 
@@ -58,7 +61,7 @@ const trustBadges = [
   { icon: Users, title: 'Built for Everyone', desc: 'Accessible tools for analysts, developers & decision makers' },
 ];
 
-function FeatureCard({ feature, index }: { feature: typeof features[0], index: number }) {
+function FeatureCard({ feature, index }: { feature: typeof features[0] & { image: string }, index: number }) {
   const Icon = feature.icon;
   return (
     <motion.div
@@ -68,16 +71,23 @@ function FeatureCard({ feature, index }: { feature: typeof features[0], index: n
       transition={{ duration: 0.6, delay: index * 0.1 }}
       className={`group flex flex-col rounded-2xl bg-[#08090f] border ${feature.borderAccent} ${feature.hoverBorder} ${feature.glowColor} overflow-hidden transition-all duration-500`}
     >
-      {/* Illustration area */}
-      <div className={`relative h-44 bg-gradient-to-br ${feature.gradientFrom} ${feature.gradientTo} flex items-center justify-center overflow-hidden`}>
-        <div className={`w-20 h-20 rounded-2xl ${feature.accentBg} border ${feature.borderAccent} flex items-center justify-center`}>
-          <Icon className={`w-10 h-10 ${feature.accentColor}`} />
+      {/* Illustration area with real image */}
+      <div className="relative h-48 overflow-hidden">
+        <img
+          src={feature.image}
+          alt={feature.title}
+          className="w-full h-full object-cover scale-105 group-hover:scale-110 transition-transform duration-700"
+        />
+        {/* Dark overlay so it blends into card */}
+        <div className="absolute inset-0 bg-black/40" />
+        {/* Bottom fade into card body */}
+        <div className={`absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-[#08090f] to-transparent`} />
+        {/* Accent color tint */}
+        <div className={`absolute inset-0 bg-gradient-to-br ${feature.gradientFrom} opacity-40`} style={{mixBlendMode: 'multiply'}} />
+        {/* Icon badge overlay — small, top-left */}
+        <div className={`absolute top-3 left-3 w-9 h-9 rounded-xl ${feature.accentBg} border ${feature.borderAccent} flex items-center justify-center backdrop-blur-sm`}>
+          <Icon className={`w-4 h-4 ${feature.accentColor}`} />
         </div>
-        {/* Decorative glow orbs */}
-        <div className={`absolute -bottom-10 -right-10 w-40 h-40 rounded-full ${feature.accentBg} blur-3xl opacity-60`} />
-        <div className={`absolute -top-10 -left-10 w-32 h-32 rounded-full ${feature.accentBg} blur-3xl opacity-30`} />
-        {/* Decorative grid dots */}
-        <div className="absolute inset-0 bg-[radial-gradient(rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:20px_20px]" />
       </div>
 
       {/* Content */}
