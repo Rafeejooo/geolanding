@@ -1,6 +1,6 @@
 'use client';
 
-import { Layers, Mail, ArrowUpRight } from 'lucide-react';
+import { Layers, Mail, ArrowRight } from 'lucide-react';
 import Link from 'next/link';
 import dynamic from 'next/dynamic';
 import { useEffect, useRef, useState } from 'react';
@@ -37,8 +37,8 @@ function FooterGlobe() {
   return (
     <GlobeT
       ref={globeRef}
-      width={900}
-      height={900}
+      width={1400}
+      height={1400}
       globeImageUrl="//unpkg.com/three-globe/example/img/earth-blue-marble.jpg"
       bumpImageUrl="//unpkg.com/three-globe/example/img/earth-topology.png"
       backgroundColor="rgba(0,0,0,0)"
@@ -59,13 +59,13 @@ export default function Footer() {
   return (
     <footer className="relative bg-[#020204] border-t border-white/5 overflow-hidden">
 
-      {/* Globe — bottom center, cropped to ~1/4 visible */}
-      <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[900px] h-[900px] translate-y-[68%] pointer-events-none z-0 opacity-60">
+      {/* Globe — bottom right, large, ~1/4 visible */}
+      <div className="absolute bottom-0 right-0 translate-x-[30%] translate-y-[72%] w-[130vw] h-[130vw] max-w-[1400px] max-h-[1400px] pointer-events-none z-0 opacity-70">
         <FooterGlobe />
       </div>
 
       {/* Atmospheric glow behind globe */}
-      <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-cyan-500/10 blur-[120px] rounded-full pointer-events-none z-0" />
+      <div className="absolute bottom-0 right-0 translate-x-[10%] w-[60vw] h-[300px] bg-cyan-500/10 blur-[120px] rounded-full pointer-events-none z-0" />
 
       {/* Gradient overlay to fade globe into background */}
       <div className="absolute inset-0 bg-gradient-to-b from-[#020204] via-[#020204]/80 to-transparent pointer-events-none z-10" />
@@ -99,19 +99,11 @@ export default function Footer() {
             </a>
           </div>
 
-          {/* GET IN TOUCH button — referensi style */}
+          {/* GET IN TOUCH button — same style as Hero */}
           <div className="shrink-0">
-            <button className="group relative px-8 py-4 border border-cyan-500/50 text-cyan-400 font-bold uppercase tracking-widest text-sm hover:border-cyan-400 hover:text-white transition-all duration-300 overflow-hidden">
-              <span className="relative z-10 flex items-center gap-2">
-                Get In Touch
-                <ArrowUpRight className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
-              </span>
-              {/* Corner accents */}
-              <div className="absolute top-0 left-0 w-2 h-2 border-t-2 border-l-2 border-cyan-500" />
-              <div className="absolute top-0 right-0 w-2 h-2 border-t-2 border-r-2 border-cyan-500" />
-              <div className="absolute bottom-0 left-0 w-2 h-2 border-b-2 border-l-2 border-cyan-500" />
-              <div className="absolute bottom-0 right-0 w-2 h-2 border-b-2 border-r-2 border-cyan-500" />
-              <div className="absolute inset-0 bg-cyan-500/0 group-hover:bg-cyan-500/5 transition-colors" />
+            <button className="px-8 py-3.5 bg-transparent border border-white/20 text-white font-bold flex items-center gap-2 hover:border-white/50 transition-all rounded-full backdrop-blur-sm uppercase tracking-widest text-sm group">
+              Get In Touch
+              <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
             </button>
           </div>
         </div>
