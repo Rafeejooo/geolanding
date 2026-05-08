@@ -20,13 +20,13 @@ function FooterGlobe() {
     const controls = globeRef.current.controls();
     controls.enableZoom = false;
     controls.enablePan = false;
-    globeRef.current.pointOfView({ lat: -20, lng: 120, altitude: 2.2 });
+    globeRef.current.pointOfView({ lat: -10, lng: 120, altitude: 1.4 });
 
     let lng = 120;
     const interval = setInterval(() => {
       if (globeRef.current) {
-        lng += 0.1;
-        globeRef.current.pointOfView({ lat: -20, lng, altitude: 2.2 });
+        lng += 0.08;
+        globeRef.current.pointOfView({ lat: -10, lng, altitude: 1.4 });
       }
     }, 16);
     return () => clearInterval(interval);
@@ -37,13 +37,13 @@ function FooterGlobe() {
   return (
     <GlobeT
       ref={globeRef}
-      width={1400}
-      height={1400}
+      width={1800}
+      height={1800}
       globeImageUrl="//unpkg.com/three-globe/example/img/earth-blue-marble.jpg"
       bumpImageUrl="//unpkg.com/three-globe/example/img/earth-topology.png"
       backgroundColor="rgba(0,0,0,0)"
-      atmosphereColor="rgba(6,182,212,0.8)"
-      atmosphereAltitude={0.2}
+      atmosphereColor="rgba(6,182,212,0.6)"
+      atmosphereAltitude={0.18}
       showGraticules={false}
     />
   );
@@ -59,17 +59,21 @@ export default function Footer() {
   return (
     <footer className="relative bg-[#020204] border-t border-white/5 overflow-hidden">
 
-      {/* Globe — bottom right, large, ~1/4 visible */}
-      <div className="absolute bottom-0 right-0 translate-x-[30%] translate-y-[72%] w-[130vw] h-[130vw] max-w-[1400px] max-h-[1400px] pointer-events-none z-0 opacity-70">
+      {/* Globe — quarter circle rising from bottom-right */}
+      {/* Container anchored to bottom-right corner, globe shifted so only top-left quarter shows */}
+      <div className="absolute bottom-0 right-0 translate-x-[50%] translate-y-[50%] w-[1800px] h-[1800px] pointer-events-none z-0 opacity-25">
         <FooterGlobe />
       </div>
 
-      {/* Atmospheric glow behind globe */}
-      <div className="absolute bottom-0 right-0 translate-x-[10%] w-[60vw] h-[300px] bg-cyan-500/10 blur-[120px] rounded-full pointer-events-none z-0" />
+      {/* Soft cyan glow at bottom-right */}
+      <div className="absolute bottom-0 right-0 w-[50vw] h-[40vh] bg-cyan-500/8 blur-[160px] pointer-events-none z-0" />
 
-      {/* Gradient overlay to fade globe into background */}
-      <div className="absolute inset-0 bg-gradient-to-b from-[#020204] via-[#020204]/80 to-transparent pointer-events-none z-10" />
-      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-[#020204] to-transparent pointer-events-none z-10" />
+      {/* Gradient: strong top fade so content is always readable */}
+      <div className="absolute inset-0 bg-gradient-to-b from-[#020204] via-[#020204]/90 to-transparent pointer-events-none z-10" />
+      {/* Left side extra fade so links stay readable */}
+      <div className="absolute inset-0 bg-gradient-to-r from-[#020204] via-[#020204]/60 to-transparent pointer-events-none z-10" />
+      {/* Bottom fade */}
+      <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-[#020204] to-transparent pointer-events-none z-10" />
 
       {/* Content */}
       <div className="relative z-20 container mx-auto px-6 pt-16 pb-8 max-w-7xl">
