@@ -5,7 +5,7 @@ import { ArrowRight } from 'lucide-react';
 
 export default function CTA() {
   return (
-    <section className="py-32 relative overflow-hidden z-10 bg-[#020204]">
+    <section className="py-16 md:py-32 relative overflow-hidden z-10 bg-[#020204]">
       {/* Subtle bottom glow */}
       <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[80%] h-[300px] bg-cyan-900/20 blur-[150px] rounded-full pointer-events-none" />
       
@@ -24,7 +24,7 @@ export default function CTA() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ delay: 0.1 }}
-          className="text-lg text-slate-400 mb-12 max-w-2xl font-mono"
+          className="text-lg text-slate-400 mb-8 md:mb-12 max-w-2xl font-mono"
         >
           Join the leading enterprises building the next generation of location-aware applications with BSK Geospatial.
         </motion.p>

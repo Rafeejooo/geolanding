@@ -1,121 +1,105 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { Database, Activity, Globe, ArrowRight } from 'lucide-react';
-import { useRef, useState } from 'react';
+import { Database, BarChart3, Monitor, ArrowRight, Shield, Cloud, Zap, Users, Circle } from 'lucide-react';
 
 const features = [
   {
-    title: 'DATA HUB',
-    description: 'A unified repository for your raster files, basemaps, and satellite imagery. Order new high-res satellite data instantly.',
-    icon: <Database className="w-8 h-8 text-cyan-400" />,
-    color: 'from-cyan-500/20 to-transparent',
-    borderColor: 'group-hover:border-cyan-500/50',
-    glow: 'shadow-[0_0_30px_rgba(6,182,212,0.15)]',
-    animContent: (
-      <div className="absolute inset-0 flex items-center justify-center opacity-20 pointer-events-none">
-        <motion.div 
-          animate={{ y: [0, -20, 0] }} 
-          transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-          className="w-32 h-32 border border-cyan-500/30 rounded-lg flex flex-col gap-2 p-2"
-        >
-          <div className="w-full h-1/4 bg-cyan-500/20 rounded" />
-          <div className="w-full h-1/4 bg-cyan-500/20 rounded" />
-          <div className="w-3/4 h-1/4 bg-cyan-500/20 rounded" />
-        </motion.div>
-      </div>
-    )
+    title: 'Data Hub',
+    subtitle: 'Access & Order Satellite Data',
+    icon: Database,
+    accentColor: 'text-blue-400',
+    accentBg: 'bg-blue-500/20',
+    borderAccent: 'border-blue-500/30',
+    glowColor: 'shadow-[0_0_40px_rgba(59,130,246,0.15)]',
+    hoverBorder: 'hover:border-blue-500/50',
+    gradientFrom: 'from-blue-900/30',
+    gradientTo: 'to-[#08090f]',
+    bulletColor: 'text-blue-400',
+    bullets: ['Order satellite imagery', 'AOI management', 'Data catalog & archive', 'API access'],
+    buttonText: 'Explore Data Hub',
   },
   {
-    title: 'ANALYSIS CENTER',
-    description: 'Deploy advanced AI models to detect land clearing, mining activities, and structural changes with unparalleled accuracy.',
-    icon: <Activity className="w-8 h-8 text-blue-500" />,
-    color: 'from-blue-500/20 to-transparent',
-    borderColor: 'group-hover:border-blue-500/50',
-    glow: 'shadow-[0_0_30px_rgba(59,130,246,0.15)]',
-    animContent: (
-      <div className="absolute inset-0 flex items-center justify-center opacity-20 pointer-events-none">
-        <div className="relative w-40 h-40 rounded-full border border-blue-500/30 flex items-center justify-center">
-          <motion.div 
-            animate={{ rotate: 360 }} 
-            transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
-            className="absolute inset-0 border-t-2 border-blue-500 rounded-full"
-          />
-          <div className="w-20 h-20 border border-blue-500/30 rounded-full" />
-        </div>
-      </div>
-    )
+    title: 'Analytics',
+    subtitle: 'Transform Data into Insights',
+    icon: BarChart3,
+    accentColor: 'text-purple-400',
+    accentBg: 'bg-purple-500/20',
+    borderAccent: 'border-purple-500/30',
+    glowColor: 'shadow-[0_0_40px_rgba(168,85,247,0.15)]',
+    hoverBorder: 'hover:border-purple-500/50',
+    gradientFrom: 'from-purple-900/30',
+    gradientTo: 'to-[#08090f]',
+    bulletColor: 'text-purple-400',
+    bullets: ['Land cover classification', 'Change detection', 'Time series analysis', 'AI & machine learning'],
+    buttonText: 'Explore Analytics',
   },
   {
-    title: 'LIVE MONITORING',
-    description: 'Stream continuous updates from providers like Planet. Set up automated alerts for critical areas and stay ahead of changes.',
-    icon: <Globe className="w-8 h-8 text-indigo-500" />,
-    color: 'from-indigo-500/20 to-transparent',
-    borderColor: 'group-hover:border-indigo-500/50',
-    glow: 'shadow-[0_0_30px_rgba(99,102,241,0.15)]',
-    animContent: (
-      <div className="absolute inset-0 flex items-center justify-center opacity-20 pointer-events-none">
-        <motion.div 
-          animate={{ scale: [1, 1.2, 1], opacity: [0.5, 1, 0.5] }} 
-          transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
-          className="w-32 h-32 rounded-full border border-dashed border-indigo-500 flex items-center justify-center"
-        >
-          <div className="w-16 h-16 rounded-full bg-indigo-500/20 blur-md" />
-        </motion.div>
-      </div>
-    )
-  }
+    title: 'Monitoring',
+    subtitle: 'Monitor Changes in Real Time',
+    icon: Monitor,
+    accentColor: 'text-emerald-400',
+    accentBg: 'bg-emerald-500/20',
+    borderAccent: 'border-emerald-500/30',
+    glowColor: 'shadow-[0_0_40px_rgba(52,211,153,0.15)]',
+    hoverBorder: 'hover:border-emerald-500/50',
+    gradientFrom: 'from-emerald-900/30',
+    gradientTo: 'to-[#08090f]',
+    bulletColor: 'text-emerald-400',
+    bullets: ['Crop monitoring', 'Deforestation tracking', 'Mining activity detection', 'Alert & notification'],
+    buttonText: 'Open Dashboard',
+  },
 ];
 
-function FeatureCard({ feature, index }: { feature: any, index: number }) {
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-  const cardRef = useRef<HTMLDivElement>(null);
+const trustBadges = [
+  { icon: Shield, title: 'Secure & Reliable', desc: 'Enterprise-grade security and data reliability' },
+  { icon: Cloud, title: 'Scalable Platform', desc: 'Built to handle petabytes of geospatial data' },
+  { icon: Zap, title: 'Faster Insights', desc: 'AI-powered analytics for faster decision making' },
+  { icon: Users, title: 'Built for Everyone', desc: 'Accessible tools for analysts, developers & decision makers' },
+];
 
-  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (!cardRef.current) return;
-    const rect = cardRef.current.getBoundingClientRect();
-    setMousePosition({
-      x: e.clientX - rect.left,
-      y: e.clientY - rect.top,
-    });
-  };
-
+function FeatureCard({ feature, index }: { feature: typeof features[0], index: number }) {
+  const Icon = feature.icon;
   return (
     <motion.div
       initial={{ opacity: 0, y: 30 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-100px" }}
+      viewport={{ once: true, margin: '-80px' }}
       transition={{ duration: 0.6, delay: index * 0.1 }}
-      ref={cardRef}
-      onMouseMove={handleMouseMove}
-      className={`relative group rounded-3xl bg-[#030305]/80 backdrop-blur-xl border border-white/10 p-8 h-[450px] overflow-hidden transition-all duration-500 ${feature.borderColor} ${feature.glow}`}
+      className={`group flex flex-col rounded-2xl bg-[#08090f] border ${feature.borderAccent} ${feature.hoverBorder} ${feature.glowColor} overflow-hidden transition-all duration-500`}
     >
-      <div 
-        className="pointer-events-none absolute -inset-px rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-        style={{
-          background: `radial-gradient(500px circle at ${mousePosition.x}px ${mousePosition.y}px, rgba(255,255,255,0.08), transparent 40%)`,
-        }}
-      />
-      
-      <div className={`absolute top-0 right-0 w-64 h-64 bg-gradient-to-bl ${feature.color} opacity-0 group-hover:opacity-100 transition-opacity duration-700 blur-[60px] pointer-events-none`} />
-
-      {feature.animContent}
-
-      <div className="relative z-10 flex flex-col h-full">
-        <div className="w-16 h-16 rounded-2xl bg-black/50 border border-white/10 flex items-center justify-center mb-6 shadow-inner backdrop-blur-md">
-          {feature.icon}
+      {/* Illustration area */}
+      <div className={`relative h-44 bg-gradient-to-br ${feature.gradientFrom} ${feature.gradientTo} flex items-center justify-center overflow-hidden`}>
+        <div className={`w-20 h-20 rounded-2xl ${feature.accentBg} border ${feature.borderAccent} flex items-center justify-center`}>
+          <Icon className={`w-10 h-10 ${feature.accentColor}`} />
         </div>
-        
-        <h3 className="text-2xl font-bold text-white mb-4 tracking-wider">{feature.title}</h3>
-        <p className="text-slate-400 font-mono text-sm leading-relaxed mb-10 flex-grow">
-          {feature.description}
-        </p>
-        
-        <div className="mt-auto">
-          <button className="flex items-center gap-2 text-xs font-bold text-slate-300 uppercase tracking-widest group-hover:text-white transition-colors">
-            Explore <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-          </button>
+        {/* Decorative glow orbs */}
+        <div className={`absolute -bottom-10 -right-10 w-40 h-40 rounded-full ${feature.accentBg} blur-3xl opacity-60`} />
+        <div className={`absolute -top-10 -left-10 w-32 h-32 rounded-full ${feature.accentBg} blur-3xl opacity-30`} />
+        {/* Decorative grid dots */}
+        <div className="absolute inset-0 bg-[radial-gradient(rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:20px_20px]" />
+      </div>
+
+      {/* Content */}
+      <div className="flex flex-col flex-1 p-6">
+        <div className="flex items-center gap-3 mb-1">
+          <h3 className="text-white font-bold text-xl">{feature.title}</h3>
         </div>
+        <p className={`text-sm ${feature.accentColor} font-mono mb-4`}>{feature.subtitle}</p>
+
+        <ul className="flex flex-col gap-2.5 mb-6 flex-1">
+          {feature.bullets.map((bullet, i) => (
+            <li key={i} className="flex items-center gap-2.5 text-slate-300 text-sm">
+              <Circle className={`w-1.5 h-1.5 ${feature.accentColor} fill-current shrink-0`} />
+              {bullet}
+            </li>
+          ))}
+        </ul>
+
+        <button className={`flex items-center gap-2 px-5 py-2.5 rounded-lg border ${feature.borderAccent} ${feature.accentColor} text-sm font-bold w-full justify-center group-hover:${feature.accentBg} transition-all`}>
+          {feature.buttonText}
+          <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
+        </button>
       </div>
     </motion.div>
   );
@@ -123,33 +107,68 @@ function FeatureCard({ feature, index }: { feature: any, index: number }) {
 
 export default function Features() {
   return (
-    <section className="py-32 relative z-10 border-t border-white/5 bg-[#020204]" id="features">
-      <div className="container mx-auto px-6">
-        <div className="flex flex-col items-center text-center mb-20">
+    <section className="py-16 md:py-28 relative z-10 border-t border-white/5 bg-[#020204]" id="features">
+      <div className="container mx-auto px-4 md:px-6 max-w-7xl">
+        {/* Header */}
+        <div className="flex flex-col items-center text-center mb-12 md:mb-16">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             className="text-cyan-400 font-bold tracking-[0.2em] uppercase text-xs mb-4 font-mono"
           >
-            Core Capabilities
+            Our Platform
           </motion.div>
-          <motion.h2 
+          <motion.h2
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.1 }}
-            className="text-4xl md:text-5xl font-medium text-white max-w-3xl leading-tight tracking-tighter"
+            className="text-4xl md:text-5xl lg:text-6xl font-bold text-white tracking-tight mb-4"
           >
-            A complete ecosystem for your <span className="text-transparent bg-clip-text bg-gradient-to-r from-white to-slate-500">spatial workflows.</span>
+            End-to-End Geospatial Solution
           </motion.h2>
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.2 }}
+            className="text-slate-400 text-base md:text-lg max-w-2xl leading-relaxed font-mono"
+          >
+            From accessing satellite data to generating actionable insight and monitoring changes in real time, our platform empowers smarter decision for a better world
+          </motion.p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-7xl mx-auto">
+        {/* 3 Feature Cards */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-5 mb-12">
           {features.map((feature, idx) => (
             <FeatureCard key={idx} feature={feature} index={idx} />
           ))}
         </div>
+
+        {/* Trust Badges */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.3 }}
+          className="grid grid-cols-2 md:grid-cols-4 gap-4 pt-10 border-t border-white/10"
+        >
+          {trustBadges.map((badge, i) => {
+            const BadgeIcon = badge.icon;
+            return (
+              <div key={i} className="flex items-start gap-3 p-4">
+                <div className="w-9 h-9 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center shrink-0 mt-0.5">
+                  <BadgeIcon className="w-4 h-4 text-cyan-400" />
+                </div>
+                <div>
+                  <div className="text-white font-semibold text-sm">{badge.title}</div>
+                  <div className="text-slate-500 text-xs mt-0.5 leading-relaxed">{badge.desc}</div>
+                </div>
+              </div>
+            );
+          })}
+        </motion.div>
       </div>
     </section>
   );

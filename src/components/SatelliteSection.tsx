@@ -5,9 +5,9 @@ import { ArrowRight, CheckCircle2 } from 'lucide-react';
 
 export default function SatelliteSection() {
   return (
-    <section className="relative w-full py-32 bg-[#020204] overflow-hidden border-t border-white/5" id="satellite">
+    <section className="relative w-full py-16 md:py-32 bg-[#020204] overflow-hidden border-t border-white/5" id="satellite">
       <div className="container mx-auto px-6 relative z-10">
-        <div className="flex flex-col lg:flex-row items-center gap-16 lg:gap-24">
+        <div className="flex flex-col lg:flex-row items-center gap-10 lg:gap-24">
           
           {/* Left Side Info - Wider */}
           <motion.div
@@ -29,11 +29,11 @@ export default function SatelliteSection() {
               </span>
             </h2>
             
-            <p className="text-slate-400 mb-10 text-lg leading-relaxed max-w-xl font-mono">
+            <p className="text-slate-400 mb-6 md:mb-10 text-lg leading-relaxed max-w-xl font-mono">
               Access the world's most comprehensive archive of Earth observation data. Stream petabytes of optical, radar, and hyperspectral imagery directly into your workflows.
             </p>
             
-            <div className="space-y-4 mb-12">
+            <div className="space-y-4 mb-8 md:mb-12">
               {['Sub-meter resolution available globally', 'Daily revisit rates for critical monitoring', 'Analysis-ready formats (COG, STAC)'].map((feat, i) => (
                 <div key={i} className="flex items-center gap-3">
                   <CheckCircle2 className="w-5 h-5 text-cyan-500" />

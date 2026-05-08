@@ -144,7 +144,7 @@ const apps = [
           </div>
           
           {/* Right Sidebar - Statistik */}
-          <div className="w-56 bg-[#0a0c10] border-l border-white/5 flex flex-col p-4 overflow-y-auto">
+          <div className="hidden sm:flex w-56 bg-[#0a0c10] border-l border-white/5 flex-col p-4 overflow-y-auto">
             <div className="text-white font-bold mb-4 flex items-center gap-2 text-sm">
               <Activity className="w-4 h-4 text-blue-400" />
               Statistik Tutupan Lahan
@@ -235,7 +235,7 @@ const apps = [
         <div className="flex flex-1 relative overflow-hidden">
           
           {/* Left Sidebar Overlay */}
-          <div className="absolute left-0 top-0 bottom-0 w-64 bg-[#0a0c10]/95 backdrop-blur-md border-r border-white/5 flex flex-col p-4 z-10">
+          <div className="hidden sm:flex absolute left-0 top-0 bottom-0 w-64 bg-[#0a0c10]/95 backdrop-blur-md border-r border-white/5 flex-col p-4 z-10">
             <div className="bg-gradient-to-r from-blue-600 to-cyan-500 p-3 rounded-lg mb-4 text-white font-bold text-[11px] leading-tight shadow-lg">
               Monitoring Izin Usaha Pertambangan di Indonesia
             </div>
@@ -330,7 +330,7 @@ const apps = [
             </div>
             
             {/* Map Date Overlay */}
-            <div className="absolute bottom-4 left-72 bg-[#0a0c10]/80 backdrop-blur-md border border-orange-500/30 rounded-lg p-1.5 flex items-center gap-2 shadow-lg">
+            <div className="absolute bottom-4 left-4 sm:left-72 bg-[#0a0c10]/80 backdrop-blur-md border border-orange-500/30 rounded-lg p-1.5 flex items-center gap-2 shadow-lg">
                <div className="px-3 py-1 bg-[#1A1A1A] rounded text-orange-400 font-bold text-[9px] flex items-center gap-1">
                  <Activity className="w-3 h-3" /> Citra Planet: Nov 2024
                </div>
@@ -344,9 +344,9 @@ const apps = [
 
 export default function AppDetails() {
   return (
-    <section className="py-32 relative z-10 border-t border-white/10 bg-black" id="apps">
+    <section className="py-16 md:py-32 relative z-10 border-t border-white/10 bg-black" id="apps">
       <div className="container mx-auto px-6">
-        <div className="flex flex-col gap-48">
+        <div className="flex flex-col gap-20 md:gap-48">
           {apps.map((app, idx) => (
             <div key={app.id} className={`flex flex-col ${idx % 2 !== 0 ? 'lg:flex-row-reverse' : 'lg:flex-row'} gap-16 items-center`}>
               
@@ -387,7 +387,7 @@ export default function AppDetails() {
                 whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.8 }}
-                className="w-full lg:w-1/2 h-[450px] relative"
+                className="w-full lg:w-1/2 h-[300px] sm:h-[400px] md:h-[450px] relative"
               >
                 {/* Decorative background for the UI */}
                 <div className="absolute inset-0 bg-gradient-to-tr from-white/5 to-transparent rounded-[2.5rem] p-1">

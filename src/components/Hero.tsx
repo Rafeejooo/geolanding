@@ -24,14 +24,14 @@ export default function Hero() {
   const globeOpacity = useTransform(scrollYProgress, [0, 1], [0.8, 0]);
 
   return (
-    <section ref={containerRef} className="relative w-full h-screen flex flex-col justify-center items-center text-center overflow-hidden bg-black">
+    <section ref={containerRef} className="relative w-full h-screen flex flex-col justify-center items-center text-center overflow-hidden bg-black pt-24">
       
       {/* Centered Globe Background with Parallax */}
       <motion.div 
         style={{ y: globeY, opacity: globeOpacity }}
         className="absolute inset-0 w-full h-full pointer-events-none z-0"
       >
-        <div className="absolute left-0 top-[15vh] md:top-[25vh] w-full h-full flex justify-center scale-125 md:scale-[1.8]">
+        <div className="absolute left-0 top-[15vh] md:top-[25vh] w-full h-full flex justify-center scale-100 sm:scale-125 md:scale-[1.8]">
            <Globe />
         </div>
       </motion.div>
@@ -41,13 +41,13 @@ export default function Hero() {
       <div className="absolute bottom-0 left-0 w-full h-[30vh] bg-gradient-to-t from-black to-transparent z-10 pointer-events-none" />
 
       {/* Hero Content */}
-      <div className="z-20 mt-[-5%] max-w-5xl px-6 flex flex-col items-center">
+      <div className="z-20 max-w-5xl px-4 md:px-6 flex flex-col items-center">
         
         <motion.div 
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
-          className="px-6 py-2 rounded-full border border-cyan-500/30 bg-cyan-500/10 backdrop-blur-md mb-8 flex items-center gap-3 shadow-[0_0_20px_rgba(6,182,212,0.2)] relative overflow-hidden group"
+          className="px-6 py-2 rounded-full border border-cyan-500/30 bg-cyan-500/10 backdrop-blur-md mb-6 md:mb-8 flex items-center gap-3 shadow-[0_0_20px_rgba(6,182,212,0.2)] relative overflow-hidden group"
         >
           <div className="absolute inset-0 bg-gradient-to-r from-cyan-500/0 via-cyan-500/20 to-cyan-500/0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000" />
           <span className="w-2 h-2 rounded-full bg-cyan-400 animate-pulse shadow-[0_0_10px_#22d3ee]" />
@@ -58,7 +58,7 @@ export default function Hero() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.1 }}
-          className="text-5xl md:text-7xl lg:text-8xl font-bold text-white mb-6 tracking-tighter leading-[1.1] relative"
+          className="text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-bold text-white mb-6 tracking-tighter leading-[1.1] relative"
         >
           {/* Tech decorative corners */}
           <div className="absolute -top-6 -left-6 w-8 h-8 border-t-2 border-l-2 border-white/20 hidden md:block" />
@@ -74,7 +74,7 @@ export default function Hero() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.2 }}
-          className="text-lg md:text-xl text-slate-400 mb-12 max-w-2xl mx-auto font-mono leading-relaxed"
+          className="text-base md:text-xl text-slate-400 mb-8 md:mb-12 max-w-2xl mx-auto font-mono leading-relaxed"
         >
           Empowering organizations with precision geospatial data. Discover, analyze, and act on planetary intelligence with our seamless ecosystem.
         </motion.p>

@@ -2,6 +2,7 @@ import Navbar from '@/components/Navbar';
 import Hero from '@/components/Hero';
 import SatelliteSection from '@/components/SatelliteSection';
 import Partners from '@/components/Partners';
+import SpectrumSection from '@/components/SpectrumSection';
 import Features from '@/components/Features';
 import AppDetails from '@/components/AppDetails';
 import CTA from '@/components/CTA';
@@ -16,8 +17,7 @@ export default function Home() {
       <Hero />
       <SatelliteSection />
       <Partners />
-
-
+      <SpectrumSection />
       <Features />
       <AppDetails />
       <CTA />
