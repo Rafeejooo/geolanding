@@ -45,7 +45,7 @@ const spectrumCards = [
     iconColor: 'text-purple-400',
     glowHover: 'hover:border-purple-500/70 hover:shadow-[0_0_30px_rgba(168,85,247,0.15)]',
     description: 'Conservation efforts leverage satellite technology to map habitats, monitor ecosystem changes, and protect endangered species.',
-    image: 'https://images.unsplash.com/photo-1564349683136-77e08dba1ef3?w=800&q=80',
+    image: 'https://images.unsplash.com/photo-1474511320723-9a56873867b5?w=800&q=80',
     gradientFrom: 'from-purple-900/40',
   },
   {
