@@ -37,8 +37,9 @@ export default function Hero() {
       </motion.div>
       
       {/* Vignette to blend globe edges into black */}
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0%,#000000_80%)] z-10 pointer-events-none" />
-      <div className="absolute bottom-0 left-0 w-full h-[30vh] bg-gradient-to-t from-black to-transparent z-10 pointer-events-none" />
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0%,#000000_65%)] z-10 pointer-events-none" />
+      <div className="absolute inset-0 bg-black/50 z-10 pointer-events-none" />
+      <div className="absolute bottom-0 left-0 w-full h-[40vh] bg-gradient-to-t from-black to-transparent z-10 pointer-events-none" />
 
       {/* Hero Content */}
       <div className="z-20 max-w-5xl px-4 md:px-6 flex flex-col items-center">
@@ -83,15 +84,15 @@ export default function Hero() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.3 }}
-          className="flex flex-col sm:flex-row gap-6"
+          className="flex flex-col sm:flex-row gap-3 sm:gap-6 w-full sm:w-auto"
         >
-          <Link href="#apps">
-            <button className="px-10 py-4 bg-white text-black font-bold flex items-center gap-2 group hover:bg-cyan-50 transition-all rounded-full shadow-[0_0_30px_rgba(255,255,255,0.2)] uppercase tracking-widest text-sm">
+          <Link href="#apps" className="w-full sm:w-auto">
+            <button className="w-full sm:w-auto px-8 py-3.5 bg-white text-black font-bold flex items-center justify-center gap-2 group hover:bg-cyan-50 transition-all rounded-full shadow-[0_0_30px_rgba(255,255,255,0.2)] uppercase tracking-widest text-sm">
               Explore Platform
               <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
             </button>
           </Link>
-          <button className="px-10 py-4 bg-transparent border border-white/20 text-white font-bold flex items-center gap-2 hover:border-white/50 transition-all rounded-full backdrop-blur-sm uppercase tracking-widest text-sm">
+          <button className="w-full sm:w-auto px-8 py-3.5 bg-transparent border border-white/20 text-white font-bold flex items-center justify-center gap-2 hover:border-white/50 transition-all rounded-full backdrop-blur-sm uppercase tracking-widest text-sm">
             Talk to Expert
           </button>
         </motion.div>

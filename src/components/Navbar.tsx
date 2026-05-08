@@ -17,19 +17,19 @@ export default function Navbar() {
       transition={{ duration: 0.8, ease: "easeOut" }}
       className="fixed top-6 left-1/2 -translate-x-1/2 z-50 w-[90%] max-w-6xl flex flex-col"
     >
-      <nav className="flex items-center justify-between px-6 py-4 rounded-[2rem] bg-black/50 backdrop-blur-xl border border-cyan-500/20 shadow-[0_0_30px_rgba(6,182,212,0.15)]">
+      <nav className="flex items-center justify-between px-4 md:px-6 py-3 md:py-4 rounded-[2rem] bg-black/70 backdrop-blur-xl border border-cyan-500/20 shadow-[0_0_30px_rgba(6,182,212,0.15)]">
 
         {/* Logo */}
-        <Link href="/" className="flex items-center gap-3 group">
-          <div className="p-2 bg-cyan-500 rounded-xl shadow-[0_0_15px_rgba(6,182,212,0.8)] group-hover:bg-cyan-400 transition-colors">
-            <Layers className="w-5 h-5 text-black" />
+        <Link href="/" className="flex items-center gap-2 md:gap-3 group shrink-0">
+          <div className="p-1.5 md:p-2 bg-cyan-500 rounded-xl shadow-[0_0_15px_rgba(6,182,212,0.8)] group-hover:bg-cyan-400 transition-colors">
+            <Layers className="w-4 h-4 md:w-5 md:h-5 text-black" />
           </div>
-          <span className="text-xl font-bold text-white tracking-widest drop-shadow-[0_0_8px_rgba(255,255,255,0.3)]">
+          <span className="text-base md:text-xl font-bold text-white tracking-widest drop-shadow-[0_0_8px_rgba(255,255,255,0.3)]">
             BSK<span className="text-cyan-400 font-light ml-1">Geospatial</span>
           </span>
         </Link>
 
-        {/* Navigation Links */}
+        {/* Navigation Links - desktop only */}
         <div className="hidden md:flex items-center gap-1">
           {navItems.map((item) => (
             <Link
@@ -43,20 +43,20 @@ export default function Navbar() {
         </div>
 
         {/* CTA Buttons */}
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-2 md:gap-4 shrink-0">
           <button className="text-xs font-bold uppercase tracking-widest text-slate-300 hover:text-white hidden md:block transition-colors">
             Sign In
           </button>
-          <button className="px-6 py-2.5 bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-400 hover:to-blue-400 text-black text-xs uppercase tracking-widest rounded-full font-bold shadow-[0_0_20px_rgba(6,182,212,0.4)] hover:shadow-[0_0_30px_rgba(6,182,212,0.6)] hover:scale-105 transition-all">
+          <button className="hidden md:block px-6 py-2.5 bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-400 hover:to-blue-400 text-black text-xs uppercase tracking-widest rounded-full font-bold shadow-[0_0_20px_rgba(6,182,212,0.4)] hover:shadow-[0_0_30px_rgba(6,182,212,0.6)] hover:scale-105 transition-all">
             Get Access
           </button>
-          {/* Hamburger Button */}
+          {/* Hamburger Button - mobile only */}
           <button
-            className="md:hidden text-slate-300 hover:text-white transition-colors"
+            className="md:hidden flex items-center justify-center w-9 h-9 rounded-xl bg-white/10 border border-white/10 text-slate-300 hover:text-white hover:bg-white/20 transition-all"
             onClick={() => setIsOpen((prev) => !prev)}
             aria-label="Toggle menu"
           >
-            {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+            {isOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
           </button>
         </div>
       </nav>
