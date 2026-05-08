@@ -1,53 +1,156 @@
-import { Layers } from 'lucide-react';
+'use client';
+
+import { Layers, Mail, ArrowUpRight } from 'lucide-react';
+import Link from 'next/link';
+import dynamic from 'next/dynamic';
+import { useEffect, useRef, useState } from 'react';
+
+const GlobeT = dynamic(() => import('react-globe.gl'), { ssr: false });
+
+function FooterGlobe() {
+  const globeRef = useRef<any>(null);
+  const [ready, setReady] = useState(false);
+
+  useEffect(() => {
+    setReady(true);
+  }, []);
+
+  useEffect(() => {
+    if (!globeRef.current) return;
+    const controls = globeRef.current.controls();
+    controls.enableZoom = false;
+    controls.enablePan = false;
+    globeRef.current.pointOfView({ lat: -20, lng: 120, altitude: 2.2 });
+
+    let lng = 120;
+    const interval = setInterval(() => {
+      if (globeRef.current) {
+        lng += 0.1;
+        globeRef.current.pointOfView({ lat: -20, lng, altitude: 2.2 });
+      }
+    }, 16);
+    return () => clearInterval(interval);
+  }, [ready]);
+
+  if (!ready) return null;
+
+  return (
+    <GlobeT
+      ref={globeRef}
+      width={900}
+      height={900}
+      globeImageUrl="//unpkg.com/three-globe/example/img/earth-blue-marble.jpg"
+      bumpImageUrl="//unpkg.com/three-globe/example/img/earth-topology.png"
+      backgroundColor="rgba(0,0,0,0)"
+      atmosphereColor="rgba(6,182,212,0.8)"
+      atmosphereAltitude={0.2}
+      showGraticules={false}
+    />
+  );
+}
+
+const links = {
+  Platform: ['Data Hub', 'Analysis Center', 'Live Monitoring', 'Pricing'],
+  Support: ['Documentation', 'Support Portal', 'Status Page', 'API Reference'],
+  Company: ['About Us', 'Careers', 'Contact', 'Blog'],
+};
 
 export default function Footer() {
   return (
-    <footer className="border-t border-white/5 bg-[#030305] pt-10 pb-6 md:pt-16 md:pb-8">
-      <div className="container mx-auto px-6">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8 md:gap-12 md:mb-12">
-          <div className="col-span-1 md:col-span-2">
-            <div className="flex items-center gap-2 mb-6">
-              <div className="p-2 bg-blue-600 rounded-lg">
-                <Layers className="w-5 h-5 text-white" />
+    <footer className="relative bg-[#020204] border-t border-white/5 overflow-hidden">
+
+      {/* Globe — bottom center, cropped to ~1/4 visible */}
+      <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[900px] h-[900px] translate-y-[68%] pointer-events-none z-0 opacity-60">
+        <FooterGlobe />
+      </div>
+
+      {/* Atmospheric glow behind globe */}
+      <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-cyan-500/10 blur-[120px] rounded-full pointer-events-none z-0" />
+
+      {/* Gradient overlay to fade globe into background */}
+      <div className="absolute inset-0 bg-gradient-to-b from-[#020204] via-[#020204]/80 to-transparent pointer-events-none z-10" />
+      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-[#020204] to-transparent pointer-events-none z-10" />
+
+      {/* Content */}
+      <div className="relative z-20 container mx-auto px-6 pt-16 pb-8 max-w-7xl">
+
+        {/* Top row: logo + CTA */}
+        <div className="flex flex-col md:flex-row justify-between items-start gap-10 mb-16">
+
+          {/* Logo + tagline */}
+          <div className="max-w-sm">
+            <Link href="/" className="flex items-center gap-3 group mb-5">
+              <div className="p-2 bg-cyan-500 rounded-xl shadow-[0_0_15px_rgba(6,182,212,0.8)] group-hover:bg-cyan-400 transition-colors">
+                <Layers className="w-5 h-5 text-black" />
               </div>
-              <span className="text-xl font-bold text-white tracking-wide">
-                Geo<span className="text-blue-500">Sphere</span>
+              <span className="text-xl font-bold text-white tracking-widest">
+                BSK<span className="text-cyan-400 font-light ml-1">Geospatial</span>
               </span>
-            </div>
-            <p className="text-slate-400 max-w-sm">
+            </Link>
+            <p className="text-slate-400 text-sm leading-relaxed mb-6">
               The leading geospatial platform for managing, analyzing, and monitoring spatial data with AI-powered insights.
             </p>
-          </div>
-          
-          <div>
-            <h4 className="text-white font-semibold mb-4">Platform</h4>
-            <ul className="space-y-2">
-              <li><a href="#" className="text-slate-400 hover:text-white text-sm transition-colors">Data Hub</a></li>
-              <li><a href="#" className="text-slate-400 hover:text-white text-sm transition-colors">Analysis Center</a></li>
-              <li><a href="#" className="text-slate-400 hover:text-white text-sm transition-colors">Live Monitoring</a></li>
-              <li><a href="#" className="text-slate-400 hover:text-white text-sm transition-colors">Pricing</a></li>
-            </ul>
+            <a
+              href="mailto:hello@bskgeospatial.com"
+              className="inline-flex items-center gap-2 text-cyan-400 text-sm font-mono hover:text-cyan-300 transition-colors"
+            >
+              <Mail className="w-4 h-4" />
+              hello@bskgeospatial.com
+            </a>
           </div>
 
-          <div>
-            <h4 className="text-white font-semibold mb-4">Company</h4>
-            <ul className="space-y-2">
-              <li><a href="#" className="text-slate-400 hover:text-white text-sm transition-colors">About Us</a></li>
-              <li><a href="#" className="text-slate-400 hover:text-white text-sm transition-colors">Careers</a></li>
-              <li><a href="#" className="text-slate-400 hover:text-white text-sm transition-colors">Contact</a></li>
-            </ul>
+          {/* GET IN TOUCH button — referensi style */}
+          <div className="shrink-0">
+            <button className="group relative px-8 py-4 border border-cyan-500/50 text-cyan-400 font-bold uppercase tracking-widest text-sm hover:border-cyan-400 hover:text-white transition-all duration-300 overflow-hidden">
+              <span className="relative z-10 flex items-center gap-2">
+                Get In Touch
+                <ArrowUpRight className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+              </span>
+              {/* Corner accents */}
+              <div className="absolute top-0 left-0 w-2 h-2 border-t-2 border-l-2 border-cyan-500" />
+              <div className="absolute top-0 right-0 w-2 h-2 border-t-2 border-r-2 border-cyan-500" />
+              <div className="absolute bottom-0 left-0 w-2 h-2 border-b-2 border-l-2 border-cyan-500" />
+              <div className="absolute bottom-0 right-0 w-2 h-2 border-b-2 border-r-2 border-cyan-500" />
+              <div className="absolute inset-0 bg-cyan-500/0 group-hover:bg-cyan-500/5 transition-colors" />
+            </button>
           </div>
         </div>
-        
+
+        {/* Links grid */}
+        <div className="grid grid-cols-2 md:grid-cols-3 gap-8 mb-16">
+          {Object.entries(links).map(([category, items]) => (
+            <div key={category}>
+              <h4 className="text-slate-500 font-bold uppercase tracking-widest text-xs mb-5 font-mono">
+                {category}
+              </h4>
+              <ul className="space-y-3">
+                {items.map((item) => (
+                  <li key={item}>
+                    <a
+                      href="#"
+                      className="text-slate-300 hover:text-white text-sm transition-colors hover:translate-x-0.5 inline-block"
+                    >
+                      {item}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
+
+        {/* Divider */}
         <div className="border-t border-white/5 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
-          <p className="text-slate-500 text-sm">
-            © {new Date().getFullYear()} GeoSphere Inc. All rights reserved.
+          <p className="text-slate-600 text-xs font-mono">
+            © {new Date().getFullYear()} BSK Geospatial. All rights reserved.
           </p>
           <div className="flex gap-6">
-            <a href="#" className="text-slate-500 hover:text-white text-sm transition-colors">Privacy Policy</a>
-            <a href="#" className="text-slate-500 hover:text-white text-sm transition-colors">Terms of Service</a>
+            <a href="#" className="text-slate-600 hover:text-slate-400 text-xs font-mono transition-colors">Privacy Policy</a>
+            <a href="#" className="text-slate-600 hover:text-slate-400 text-xs font-mono transition-colors">Terms of Service</a>
+            <a href="#" className="text-slate-600 hover:text-slate-400 text-xs font-mono transition-colors">Sitemap</a>
           </div>
         </div>
+
       </div>
     </footer>
   );
