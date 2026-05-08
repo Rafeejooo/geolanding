@@ -2,9 +2,13 @@
 
 import { Layers, Mail, ArrowRight } from 'lucide-react';
 import Link from 'next/link';
-import { useEffect, useRef, useState } from 'react';
-import * as THREE from 'three';
+// useEffect and useState kept for when globe is re-enabled
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+import { useEffect, useState } from 'react';
+// import { useRef } from 'react';
+// import * as THREE from 'three';
 
+/* GLOBE COMPONENT — commented out, re-enable when ready
 function FooterGlobe() {
   const mountRef = useRef<HTMLDivElement>(null);
 
@@ -103,6 +107,7 @@ function FooterGlobe() {
 
   return <div ref={mountRef} className="w-full h-full" />;
 }
+*/
 
 const links = {
   Platform: ['Data Hub', 'Analysis Center', 'Live Monitoring', 'Pricing'],
@@ -111,13 +116,13 @@ const links = {
 };
 
 export default function Footer() {
-  const [mounted, setMounted] = useState(false);
-  useEffect(() => setMounted(true), []);
+  // const [mounted, setMounted] = useState(false);
+  // useEffect(() => setMounted(true), []);
 
   return (
     <footer className="relative bg-[#020204] border-t border-white/5 overflow-hidden">
 
-      {/* Globe — quarter circle rising from bottom-right */}
+      {/* GLOBE — commented out, re-enable when ready
       {mounted && (
         <div
           className="absolute pointer-events-none z-0"
@@ -135,16 +140,11 @@ export default function Footer() {
           <FooterGlobe />
         </div>
       )}
-
-      {/* Cyan atmosphere glow at corner */}
       <div className="absolute bottom-0 right-0 w-[60vw] h-[60vh] bg-cyan-500/10 blur-[200px] pointer-events-none z-0" />
-
-      {/* Top fade — covers upper portion so content readable */}
       <div className="absolute top-0 left-0 right-0 h-[55%] bg-gradient-to-b from-[#020204] to-transparent pointer-events-none z-10" />
-      {/* Left fade — keeps text readable */}
       <div className="absolute inset-0 bg-gradient-to-r from-[#020204] via-[#020204]/70 to-transparent pointer-events-none z-10" />
-      {/* Bottom edge fade */}
       <div className="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-[#020204] to-transparent pointer-events-none z-10" />
+      */}
 
       {/* Content */}
       <div className="relative z-20 container mx-auto px-6 pt-16 pb-8 max-w-7xl">
