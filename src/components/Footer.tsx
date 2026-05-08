@@ -20,13 +20,13 @@ function FooterGlobe() {
     const controls = globeRef.current.controls();
     controls.enableZoom = false;
     controls.enablePan = false;
-    globeRef.current.pointOfView({ lat: -10, lng: 120, altitude: 1.4 });
+    globeRef.current.pointOfView({ lat: -5, lng: 120, altitude: 0.9 });
 
     let lng = 120;
     const interval = setInterval(() => {
       if (globeRef.current) {
-        lng += 0.08;
-        globeRef.current.pointOfView({ lat: -10, lng, altitude: 1.4 });
+        lng += 0.06;
+        globeRef.current.pointOfView({ lat: -5, lng, altitude: 0.9 });
       }
     }, 16);
     return () => clearInterval(interval);
@@ -37,8 +37,8 @@ function FooterGlobe() {
   return (
     <GlobeT
       ref={globeRef}
-      width={1800}
-      height={1800}
+      width={2000}
+      height={2000}
       globeImageUrl="//unpkg.com/three-globe/example/img/earth-blue-marble.jpg"
       bumpImageUrl="//unpkg.com/three-globe/example/img/earth-topology.png"
       backgroundColor="rgba(0,0,0,0)"
@@ -59,21 +59,34 @@ export default function Footer() {
   return (
     <footer className="relative bg-[#020204] border-t border-white/5 overflow-hidden">
 
-      {/* Globe — quarter circle rising from bottom-right */}
-      {/* Container anchored to bottom-right corner, globe shifted so only top-left quarter shows */}
-      <div className="absolute bottom-0 right-0 translate-x-[50%] translate-y-[50%] w-[1800px] h-[1800px] pointer-events-none z-0 opacity-25">
+      {/* Globe — quarter circle, center anchored at bottom-right corner */}
+      {/* translate-x/y 0 means the globe canvas top-left starts at bottom-right of footer */}
+      {/* So we shift it left/up by ~half its size to center it at the corner */}
+      <div
+        className="absolute pointer-events-none z-0"
+        style={{
+          bottom: 0,
+          right: 0,
+          width: '200vw',
+          height: '200vw',
+          maxWidth: '2000px',
+          maxHeight: '2000px',
+          transform: 'translate(50%, 50%)',
+          opacity: 0.55,
+        }}
+      >
         <FooterGlobe />
       </div>
 
-      {/* Soft cyan glow at bottom-right */}
-      <div className="absolute bottom-0 right-0 w-[50vw] h-[40vh] bg-cyan-500/8 blur-[160px] pointer-events-none z-0" />
+      {/* Cyan atmosphere glow at corner */}
+      <div className="absolute bottom-0 right-0 w-[60vw] h-[60vh] bg-cyan-500/10 blur-[200px] pointer-events-none z-0" />
 
-      {/* Gradient: strong top fade so content is always readable */}
-      <div className="absolute inset-0 bg-gradient-to-b from-[#020204] via-[#020204]/90 to-transparent pointer-events-none z-10" />
-      {/* Left side extra fade so links stay readable */}
-      <div className="absolute inset-0 bg-gradient-to-r from-[#020204] via-[#020204]/60 to-transparent pointer-events-none z-10" />
-      {/* Bottom fade */}
-      <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-[#020204] to-transparent pointer-events-none z-10" />
+      {/* Top fade — only top 40% of footer fades in, rest is transparent so globe shows */}
+      <div className="absolute top-0 left-0 right-0 h-[55%] bg-gradient-to-b from-[#020204] to-transparent pointer-events-none z-10" />
+      {/* Left fade — keeps text readable */}
+      <div className="absolute inset-0 bg-gradient-to-r from-[#020204] via-[#020204]/70 to-transparent pointer-events-none z-10" />
+      {/* Bottom edge fade */}
+      <div className="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-[#020204] to-transparent pointer-events-none z-10" />
 
       {/* Content */}
       <div className="relative z-20 container mx-auto px-6 pt-16 pb-8 max-w-7xl">
