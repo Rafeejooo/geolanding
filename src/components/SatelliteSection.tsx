@@ -5,7 +5,7 @@ import { ArrowRight, CheckCircle2 } from 'lucide-react';
 
 export default function SatelliteSection() {
   return (
-    <section className="relative w-full py-16 md:py-32 bg-[#020204] overflow-hidden border-t border-white/5" id="satellite">
+    <section className="relative w-full pt-16 md:pt-32 pb-0 bg-[#020204] overflow-hidden border-t border-white/5" id="satellite">
       <div className="container mx-auto px-6 relative z-10">
         <div className="flex flex-col lg:flex-row items-center gap-10 lg:gap-24">
           
@@ -22,7 +22,7 @@ export default function SatelliteSection() {
               <span className="text-xs font-bold text-blue-400 uppercase tracking-widest">Global Coverage</span>
             </div>
             
-            <h2 className="text-4xl md:text-5xl font-bold text-white mb-6 tracking-tight leading-tight">
+            <h2 className="text-3xl md:text-5xl font-bold text-white mb-6 tracking-tight leading-tight">
               High-Resolution <br />
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-500">
                 Satellite Imagery

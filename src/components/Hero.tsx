@@ -59,7 +59,7 @@ export default function Hero() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.1 }}
-          className="text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-bold text-white mb-6 tracking-tighter leading-[1.1] relative"
+          className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-6 tracking-tighter leading-[1.1] relative"
         >
           {/* Tech decorative corners */}
           <div className="absolute -top-6 -left-6 w-8 h-8 border-t-2 border-l-2 border-white/20 hidden md:block" />
@@ -75,7 +75,7 @@ export default function Hero() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.2 }}
-          className="text-base md:text-xl text-slate-400 mb-8 md:mb-12 max-w-2xl mx-auto font-mono leading-relaxed"
+          className="text-sm md:text-lg text-slate-400 mb-8 md:mb-12 max-w-2xl mx-auto font-mono leading-relaxed"
         >
           Empowering organizations with precision geospatial data. Discover, analyze, and act on planetary intelligence with our seamless ecosystem.
         </motion.p>

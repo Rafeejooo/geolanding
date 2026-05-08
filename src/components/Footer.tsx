@@ -183,7 +183,7 @@ export default function Footer() {
         */}
 
         {/* Links grid */}
-        <div className="grid grid-cols-2 md:grid-cols-3 gap-8 mb-16">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 mb-16">
           {Object.entries(links).map(([category, items]) => (
             <div key={category}>
               <h4 className="text-slate-500 font-bold uppercase tracking-widest text-xs mb-5 font-mono">

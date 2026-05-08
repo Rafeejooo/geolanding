@@ -1,10 +1,11 @@
 import Navbar from '@/components/Navbar';
 import Hero from '@/components/Hero';
-import SatelliteSection from '@/components/SatelliteSection';
+import WhySection from '@/components/WhySection';
 import Partners from '@/components/Partners';
-import SpectrumSection from '@/components/SpectrumSection';
 import Features from '@/components/Features';
+import SpectrumSection from '@/components/SpectrumSection';
 import AppDetails from '@/components/AppDetails';
+import SatelliteSection from '@/components/SatelliteSection';
 import CTA from '@/components/CTA';
 import Footer from '@/components/Footer';
 import AnimeParticles from '@/components/AnimeParticles';
@@ -15,11 +16,12 @@ export default function Home() {
       <AnimeParticles />
       <Navbar />
       <Hero />
+      <WhySection />
+      <Features />
+      <SpectrumSection />
+      <AppDetails />
       <SatelliteSection />
       <Partners />
-      <SpectrumSection />
-      <Features />
-      <AppDetails />
       <CTA />
       <Footer />
     </main>

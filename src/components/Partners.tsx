@@ -6,7 +6,7 @@ const partners = ['Planet', 'Maxar', 'Airbus', 'Sentinel', 'Landsat'];
 
 export default function Partners() {
   return (
-    <section className="py-20 relative z-10">
+    <section className="pt-10 pb-20 relative z-10">
       <div className="container mx-auto px-6 overflow-hidden">
         <p className="text-center text-xs font-bold text-slate-500 uppercase tracking-[0.3em] mb-12 font-mono">
           Seamless integration with leading providers

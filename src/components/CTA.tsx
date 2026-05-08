@@ -39,7 +39,7 @@ export default function CTA() {
   return (
     <section
       ref={sectionRef}
-      className="py-16 md:py-32 relative overflow-hidden z-10"
+      className="py-24 md:py-48 relative overflow-hidden z-10"
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
     >
@@ -82,7 +82,7 @@ export default function CTA() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.7, delay: 0.1 }}
-          className="text-5xl md:text-7xl font-bold text-white tracking-tight mb-6 drop-shadow-[0_2px_20px_rgba(0,0,0,0.8)]"
+          className="text-3xl sm:text-5xl md:text-7xl font-bold text-white tracking-tight mb-6 drop-shadow-[0_2px_20px_rgba(0,0,0,0.8)]"
         >
           Ready to deploy?
         </motion.h2>

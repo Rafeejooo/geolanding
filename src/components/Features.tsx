@@ -134,7 +134,7 @@ export default function Features() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.1 }}
-            className="text-4xl md:text-5xl lg:text-6xl font-bold text-white tracking-tight mb-4"
+            className="text-3xl md:text-5xl lg:text-6xl font-bold text-white tracking-tight mb-4"
           >
             End-to-End Geospatial Solution
           </motion.h2>
@@ -162,7 +162,7 @@ export default function Features() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ delay: 0.3 }}
-          className="grid grid-cols-2 md:grid-cols-4 gap-4 pt-10 border-t border-white/10"
+          className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 pt-10 border-t border-white/10"
         >
           {trustBadges.map((badge, i) => {
             const BadgeIcon = badge.icon;

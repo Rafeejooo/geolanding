@@ -346,9 +346,9 @@ export default function AppDetails() {
   return (
     <section className="py-16 md:py-32 relative z-10 border-t border-white/10 bg-black" id="apps">
       <div className="container mx-auto px-6">
-        <div className="flex flex-col gap-20 md:gap-48">
+        <div className="flex flex-col gap-14 md:gap-48">
           {apps.map((app, idx) => (
-            <div key={app.id} className={`flex flex-col ${idx % 2 !== 0 ? 'lg:flex-row-reverse' : 'lg:flex-row'} gap-16 items-center`}>
+            <div key={app.id} className={`flex flex-col ${idx % 2 !== 0 ? 'lg:flex-row-reverse' : 'lg:flex-row'} gap-8 lg:gap-16 items-center`}>
               
               <motion.div 
                 initial={{ opacity: 0, x: idx % 2 === 0 ? -50 : 50 }}
@@ -361,7 +361,7 @@ export default function AppDetails() {
                   <div className={`w-3 h-3 rounded-full ${app.color} shadow-[0_0_10px_currentColor]`} />
                   <span className="text-sm font-mono tracking-widest uppercase text-slate-400">{app.title}</span>
                 </div>
-                <h2 className="text-4xl md:text-5xl font-medium text-white mb-6 tracking-tight">
+                <h2 className="text-2xl md:text-5xl font-medium text-white mb-6 tracking-tight">
                   {app.description.split('.')[0]}.
                 </h2>
                 <p className="text-lg text-slate-400 mb-8 font-mono leading-relaxed">
@@ -387,7 +387,7 @@ export default function AppDetails() {
                 whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.8 }}
-                className="w-full lg:w-1/2 h-[300px] sm:h-[400px] md:h-[450px] relative"
+                className="w-full lg:w-1/2 h-[260px] sm:h-[340px] md:h-[420px] relative"
               >
                 {/* Decorative background for the UI */}
                 <div className="absolute inset-0 bg-gradient-to-tr from-white/5 to-transparent rounded-[2.5rem] p-1">
