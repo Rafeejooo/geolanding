@@ -2,51 +2,106 @@
 
 import { Layers, Mail, ArrowRight } from 'lucide-react';
 import Link from 'next/link';
-import dynamic from 'next/dynamic';
 import { useEffect, useRef, useState } from 'react';
-
-const GlobeT = dynamic(() => import('react-globe.gl'), { ssr: false });
+import * as THREE from 'three';
 
 function FooterGlobe() {
-  const globeRef = useRef<any>(null);
-  const [ready, setReady] = useState(false);
+  const mountRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    setReady(true);
+    const el = mountRef.current;
+    if (!el) return;
+
+    // Scene
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(45, 1, 0.1, 1000);
+    camera.position.z = 2.2;
+
+    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+    renderer.setPixelRatio(window.devicePixelRatio);
+    renderer.setSize(el.offsetWidth, el.offsetHeight);
+    renderer.setClearColor(0x000000, 0);
+    el.appendChild(renderer.domElement);
+
+    // Earth sphere
+    const geometry = new THREE.SphereGeometry(1, 64, 64);
+    const loader = new THREE.TextureLoader();
+
+    // Load earth textures
+    const earthTexture = loader.load('//unpkg.com/three-globe/example/img/earth-blue-marble.jpg');
+    const bumpTexture = loader.load('//unpkg.com/three-globe/example/img/earth-topology.png');
+
+    const material = new THREE.MeshPhongMaterial({
+      map: earthTexture,
+      bumpMap: bumpTexture,
+      bumpScale: 0.05,
+      specular: new THREE.Color(0x222222),
+      shininess: 8,
+    });
+
+    const earth = new THREE.Mesh(geometry, material);
+    scene.add(earth);
+
+    // Atmosphere glow
+    const atmGeo = new THREE.SphereGeometry(1.08, 64, 64);
+    const atmMat = new THREE.MeshPhongMaterial({
+      color: new THREE.Color(0x06b6d4),
+      transparent: true,
+      opacity: 0.08,
+      side: THREE.FrontSide,
+    });
+    const atmosphere = new THREE.Mesh(atmGeo, atmMat);
+    scene.add(atmosphere);
+
+    // Outer atmosphere ring
+    const outerAtmGeo = new THREE.SphereGeometry(1.14, 64, 64);
+    const outerAtmMat = new THREE.MeshPhongMaterial({
+      color: new THREE.Color(0x0e7490),
+      transparent: true,
+      opacity: 0.04,
+      side: THREE.FrontSide,
+    });
+    const outerAtm = new THREE.Mesh(outerAtmGeo, outerAtmMat);
+    scene.add(outerAtm);
+
+    // Lighting — ambient + directional (sun-like from top-right)
+    const ambient = new THREE.AmbientLight(0xffffff, 0.3);
+    scene.add(ambient);
+
+    const sun = new THREE.DirectionalLight(0xffffff, 1.2);
+    sun.position.set(5, 3, 5);
+    scene.add(sun);
+
+    const rimLight = new THREE.DirectionalLight(0x06b6d4, 0.4);
+    rimLight.position.set(-5, -2, -3);
+    scene.add(rimLight);
+
+    // Auto-rotate
+    let frameId: number;
+    const animate = () => {
+      frameId = requestAnimationFrame(animate);
+      earth.rotation.y += 0.0015;
+      atmosphere.rotation.y += 0.0015;
+      renderer.render(scene, camera);
+    };
+    animate();
+
+    // Handle resize
+    const onResize = () => {
+      if (!el) return;
+      renderer.setSize(el.offsetWidth, el.offsetHeight);
+    };
+    window.addEventListener('resize', onResize);
+
+    return () => {
+      cancelAnimationFrame(frameId);
+      window.removeEventListener('resize', onResize);
+      renderer.dispose();
+      if (el.contains(renderer.domElement)) el.removeChild(renderer.domElement);
+    };
   }, []);
 
-  useEffect(() => {
-    if (!globeRef.current) return;
-    const controls = globeRef.current.controls();
-    controls.enableZoom = false;
-    controls.enablePan = false;
-    globeRef.current.pointOfView({ lat: -5, lng: 120, altitude: 0.9 });
-
-    let lng = 120;
-    const interval = setInterval(() => {
-      if (globeRef.current) {
-        lng += 0.06;
-        globeRef.current.pointOfView({ lat: -5, lng, altitude: 0.9 });
-      }
-    }, 16);
-    return () => clearInterval(interval);
-  }, [ready]);
-
-  if (!ready) return null;
-
-  return (
-    <GlobeT
-      ref={globeRef}
-      width={2000}
-      height={2000}
-      globeImageUrl="//unpkg.com/three-globe/example/img/earth-blue-marble.jpg"
-      bumpImageUrl="//unpkg.com/three-globe/example/img/earth-topology.png"
-      backgroundColor="rgba(0,0,0,0)"
-      atmosphereColor="rgba(6,182,212,0.6)"
-      atmosphereAltitude={0.18}
-      showGraticules={false}
-    />
-  );
+  return <div ref={mountRef} className="w-full h-full" />;
 }
 
 const links = {
@@ -56,32 +111,35 @@ const links = {
 };
 
 export default function Footer() {
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
+
   return (
     <footer className="relative bg-[#020204] border-t border-white/5 overflow-hidden">
 
-      {/* Globe — quarter circle, center anchored at bottom-right corner */}
-      {/* translate-x/y 0 means the globe canvas top-left starts at bottom-right of footer */}
-      {/* So we shift it left/up by ~half its size to center it at the corner */}
-      <div
-        className="absolute pointer-events-none z-0"
-        style={{
-          bottom: 0,
-          right: 0,
-          width: '200vw',
-          height: '200vw',
-          maxWidth: '2000px',
-          maxHeight: '2000px',
-          transform: 'translate(50%, 50%)',
-          opacity: 0.55,
-        }}
-      >
-        <FooterGlobe />
-      </div>
+      {/* Globe — quarter circle rising from bottom-right */}
+      {mounted && (
+        <div
+          className="absolute pointer-events-none z-0"
+          style={{
+            bottom: 0,
+            right: 0,
+            width: '200vw',
+            height: '200vw',
+            maxWidth: '2000px',
+            maxHeight: '2000px',
+            transform: 'translate(50%, 50%)',
+            opacity: 0.6,
+          }}
+        >
+          <FooterGlobe />
+        </div>
+      )}
 
       {/* Cyan atmosphere glow at corner */}
       <div className="absolute bottom-0 right-0 w-[60vw] h-[60vh] bg-cyan-500/10 blur-[200px] pointer-events-none z-0" />
 
-      {/* Top fade — only top 40% of footer fades in, rest is transparent so globe shows */}
+      {/* Top fade — covers upper portion so content readable */}
       <div className="absolute top-0 left-0 right-0 h-[55%] bg-gradient-to-b from-[#020204] to-transparent pointer-events-none z-10" />
       {/* Left fade — keeps text readable */}
       <div className="absolute inset-0 bg-gradient-to-r from-[#020204] via-[#020204]/70 to-transparent pointer-events-none z-10" />
@@ -116,7 +174,7 @@ export default function Footer() {
             </a>
           </div>
 
-          {/* GET IN TOUCH button — same style as Hero */}
+          {/* GET IN TOUCH button */}
           <div className="shrink-0">
             <button className="px-8 py-3.5 bg-transparent border border-white/20 text-white font-bold flex items-center gap-2 hover:border-white/50 transition-all rounded-full backdrop-blur-sm uppercase tracking-widest text-sm group">
               Get In Touch
@@ -148,7 +206,7 @@ export default function Footer() {
           ))}
         </div>
 
-        {/* Divider */}
+        {/* Bottom bar */}
         <div className="border-t border-white/5 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
           <p className="text-slate-600 text-xs font-mono">
             © {new Date().getFullYear()} BSK Geospatial. All rights reserved.
