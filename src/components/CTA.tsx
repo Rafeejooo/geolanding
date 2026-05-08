@@ -1,24 +1,64 @@
 'use client';
 
-import { motion } from 'framer-motion';
+import { motion, useScroll, useTransform, useMotionValue, useSpring } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
+import { useRef } from 'react';
 
 export default function CTA() {
-  return (
-    <section className="py-16 md:py-32 relative overflow-hidden z-10">
+  const sectionRef = useRef<HTMLElement>(null);
 
-      {/* Background image */}
-      <div className="absolute inset-0 z-0">
-        <img
+  // Scroll-based parallax
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ['start end', 'end start'],
+  });
+  const bgScale = useTransform(scrollYProgress, [0, 0.5, 1], [1.15, 1.05, 1.0]);
+  const bgOpacity = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0.4, 1, 1, 0.6]);
+  const bgY = useTransform(scrollYProgress, [0, 1], ['-8%', '8%']);
+
+  // Mouse hover parallax
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
+  const smoothX = useSpring(mouseX, { stiffness: 50, damping: 20 });
+  const smoothY = useSpring(mouseY, { stiffness: 50, damping: 20 });
+  const imgX = useTransform(smoothX, [-1, 1], ['-2%', '2%']);
+  const imgY = useTransform(smoothY, [-1, 1], ['-2%', '2%']);
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLElement>) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    const x = (e.clientX - rect.left) / rect.width * 2 - 1; // -1 to 1
+    const y = (e.clientY - rect.top) / rect.height * 2 - 1;
+    mouseX.set(x);
+    mouseY.set(y);
+  };
+  const handleMouseLeave = () => {
+    mouseX.set(0);
+    mouseY.set(0);
+  };
+
+  return (
+    <section
+      ref={sectionRef}
+      className="py-16 md:py-32 relative overflow-hidden z-10"
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+    >
+
+      {/* Background image with scroll + hover parallax */}
+      <div className="absolute inset-0 z-0 overflow-hidden">
+        <motion.img
           src="https://cdn.sanity.io/images/hvd5n54p/blog/b65a08b5b6067ab1185c73b68808327ac20c190b-1800x1152.jpg?w=2048&q=75&fit=clip&auto=format"
           alt=""
           className="w-full h-full object-cover"
+          style={{
+            scale: bgScale,
+            opacity: bgOpacity,
+            y: bgY,
+            x: imgX,
+          }}
         />
-        {/* Dark overlay — heavy so text stays readable */}
         <div className="absolute inset-0 bg-black/75" />
-        {/* Vignette edges */}
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_30%,rgba(2,2,4,0.9)_100%)]" />
-        {/* Top and bottom fade into page bg */}
         <div className="absolute top-0 left-0 right-0 h-24 bg-gradient-to-b from-[#020204] to-transparent" />
         <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-[#020204] to-transparent" />
       </div>
